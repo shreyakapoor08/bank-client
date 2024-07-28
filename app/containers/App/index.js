@@ -10,7 +10,7 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
 import HomePage from 'containers/HomePage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
@@ -25,6 +25,7 @@ import ForgetPassword from 'containers/ForgetPasswordPage/Loadable';
 import ResetPassword from 'containers/ResetPasswordPage/Loadable';
 
 import { ConfigProvider } from 'antd';
+
 import Layout from 'components/App/Layout';
 import { routes } from 'utils';
 import 'antd/dist/antd.less';
@@ -41,7 +42,6 @@ import { createStructuredSelector } from 'reselect';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import saga from './saga';
-
 
 const stateSelector = createStructuredSelector({
   locale: makeSelectLocale(),
@@ -65,67 +65,69 @@ function App() {
 
   return (
     <ConfigProvider locale={getLocale(locale)}>
-      <div>
-        <Switch>
-          <Route
-            restricted
-            exact
-            path={routes.home.path}
-            component={HomePage}
-          />
-          <PublicRoute
-            restricted
-            path={routes.login.path}
-            component={LoginPage}
-          />
-          <PublicRoute
-            restricted
-            path={routes.register.path}
-            component={RegisterPage}
-          />
-          <PublicRoute path={routes.privacy.path} component={PrivacyPage} />
-          <PublicRoute
-            restricted
-            path={routes.forgetPassword.path}
-            component={ForgetPassword}
-          />
-          <PublicRoute
-            restricted
-            path={`${routes.resetPassword.path}/:token`}
-            component={ResetPassword}
-          />
-          <PublicRoute
-            exact
-            path={routes.notFound.path}
-            component={NotFoundPage}
-          />
+      <BrowserRouter>
+        <div>
+          <Switch>
+            <Route
+              restricted
+              exact
+              path={routes.home.path}
+              component={HomePage}
+            />
+            <PublicRoute
+              restricted
+              path={routes.login.path}
+              component={LoginPage}
+            />
+            <PublicRoute
+              restricted
+              path={routes.register.path}
+              component={RegisterPage}
+            />
+            <PublicRoute path={routes.privacy.path} component={PrivacyPage} />
+            <PublicRoute
+              restricted
+              path={routes.forgetPassword.path}
+              component={ForgetPassword}
+            />
+            <PublicRoute
+              restricted
+              path={`${routes.resetPassword.path}/:token`}
+              component={ResetPassword}
+            />
+            <PublicRoute
+              exact
+              path={routes.notFound.path}
+              component={NotFoundPage}
+            />
 
-          <Layout>
-            <Switch>
-              <PrivateRoute
-                exact
-                path={routes.dashboard.path}
-                component={DashboardPage}
-              />
-              <PrivateRoute
-                path={routes.payment.path}
-                component={PaymentPage}
-              />
-              <PrivateRoute
-                path={routes.history.path}
-                component={HistoryPage}
-              />
-              <PrivateRoute
-                path={routes.settings.path}
-                component={SettingsPage}
-              />
+            <Layout>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path={routes.dashboard.path}
+                  component={DashboardPage}
+                />
+                <PrivateRoute
+                  path={routes.payment.path}
+                  component={PaymentPage}
+                />
+                <PrivateRoute
+                  path={routes.history.path}
+                  component={HistoryPage}
+                />
+                <PrivateRoute
+                  path={routes.settings.path}
+                  component={SettingsPage}
+                />
 
-              <Redirect to={routes.notFound.path} />
-            </Switch>
-          </Layout>
-        </Switch>
-        <GlobalStyle />
-      </div>
+                <Redirect to={routes.notFound.path} />
+              </Switch>
+            </Layout>
+          </Switch>
+          <GlobalStyle />
+        </div>
+      </BrowserRouter>
     </ConfigProvider>
   );
 }
