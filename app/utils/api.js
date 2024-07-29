@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http:///18.208.252.131:4000/bank';
+const API_BASE_URL = 'http:///54.234.214.189:4000/bank';
 const AUTH = 'Auth';
 const USERS = 'Users';
 const CURRENCIES = 'Currencies';
