@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http:///54.234.214.189:4000/bank';
+const API_BASE_URL = 'http:///bank-loadbalancer-120707629.us-east-1.elb.amazonaws.com:4000/bank';
 const AUTH = 'Auth';
 const USERS = 'Users';
 const CURRENCIES = 'Currencies';
